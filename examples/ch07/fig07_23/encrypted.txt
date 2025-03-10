@@ -1,0 +1,5 @@
+Secret key seed text:
+XMWUJBVYHXZ
+
+Encrypted text you can paste into the last input prompt in Fig. 7.22:
+pMa5tfEKwk59dTvC04Ft1IFQz9mEXnkfYXZwxk4ujGE=

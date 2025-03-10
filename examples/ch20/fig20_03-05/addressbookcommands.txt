@@ -1,0 +1,24 @@
+=============================
+Compiling the AddressBook App
+=============================
+// macOS
+javac --module-path $PATH_TO_FX --add-modules javafx.controls,javafx.fxml *.java
+
+// Windows PowerShell
+javac --module-path $env:PATH_TO_FX --add-modules javafx.controls,javafx.fxml *.java
+
+// Windows Command Prompt
+javac --module-path %PATH_TO_FX% --add-modules javafx.controls,javafx.fxml *.java
+
+=============================
+Running the AddressBook App
+=============================
+// macOS
+java --module-path $PATH_TO_FX --add-modules javafx.controls,javafx.fxml -cp ".:../libs/sqlite-jdbc-3.47.1.0.jar" AddressBook
+
+// Windows PowerShell
+java --module-path $env:PATH_TO_FX --add-modules javafx.controls,javafx.fxml -cp ".;..\libs\sqlite-jdbc-3.47.1.0.jar" AddressBook
+
+// Windows Command Prompt
+java --module-path %PATH_TO_FX% --add-modules javafx.controls,javafx.fxml -cp ".;..\libs\sqlite-jdbc-3.47.1.0.jar" AddressBook
+
