@@ -3,14 +3,14 @@ WelcomeApp
 ===========================================================
 
 // Windows Command Prompt: Compiling the WelcomeApp 
-javac -d mods/com.deitel.welcome ^
-   src/com.deitel.welcome/module-info.java ^
-   src/com.deitel.welcome/com/deitel/welcome/Welcome.java
+javac -d mods\com.deitel.welcome ^
+   src\com.deitel.welcome\module-info.java ^
+   src\com.deitel.welcome\com\deitel\welcome\Welcome.java
 
 // Windows PowerShell: Compiling the WelcomeApp 
 javac -d mods/com.deitel.welcome `
-   src/com.deitel.welcome/module-info.java `
-   src/com.deitel.welcome/com/deitel/welcome/Welcome.java
+   src\com.deitel.welcome\module-info.java `
+   src\com.deitel.welcome\com\deitel\welcome\Welcome.java
 
 // macOS: Compiling the WelcomeApp 
 javac -d mods/com.deitel.welcome \
@@ -33,42 +33,34 @@ java --module-path mods \
    --module com.deitel.welcome/com.deitel.welcome.Welcome
 
 // Windows Command Prompt: Packaging the WelcomeApp's module in a JAR file 
-jar --create -f jars/com.deitel.welcome.jar ^
+jar --create --file jars\com.deitel.welcome.jar ^
    --main-class com.deitel.welcome.Welcome ^
-   -C mods/com.deitel.welcome .
+   -C mods\com.deitel.welcome .
 
 // Windows PowerShell: Packaging the WelcomeApp's module in a JAR file 
-jar --create -f jars/com.deitel.welcome.jar `
+jar --create --file jars\com.deitel.welcome.jar `
    --main-class com.deitel.welcome.Welcome `
-   -C mods/com.deitel.welcome .
+   -C mods\com.deitel.welcome .
 
 // macOS: Packaging the WelcomeApp's module in a JAR file 
-jar --create -f jars/com.deitel.welcome.jar \
+jar --create --file jars/com.deitel.welcome.jar \
    --main-class com.deitel.welcome.Welcome \
    -C mods/com.deitel.welcome .
 
 // Windows Command Prompt: Shortened packaging of the WelcomeApp's module in a JAR file 
-jar -cfe jars/com.deitel.welcome.jar ^
+jar -cfe jars\com.deitel.welcome.jar ^
    com.deitel.welcome.Welcome ^
-   -C mods/com.deitel.welcome .
+   -C mods\com.deitel.welcome .
 
 // Windows PowerShell: Shortened packaging of the WelcomeApp's module in a JAR file 
-jar -cfe jars/com.deitel.welcome.jar `
+jar -cfe jars\com.deitel.welcome.jar `
    com.deitel.welcome.Welcome `
-   -C mods/com.deitel.welcome .
+   -C mods\com.deitel.welcome .
 
 // macOS: Shortened packaging of the WelcomeApp's module in a JAR file 
 jar -cfe jars/com.deitel.welcome.jar \
    com.deitel.welcome.Welcome \
    -C mods/com.deitel.welcome .
-
-// All platforms: Running the WelcomeApp from a Modular JAR file
-// if you specified the entry point
-java --module-path jars -m com.deitel.welcome
-
-or
-
-java -p jars -m com.deitel.welcome
 
 // All platforms: Running the WelcomeApp from a Modular JAR file
 // if you specified the entry point
@@ -86,26 +78,27 @@ or
 
 java -p jars -m com.deitel.welcome/com.deitel.welcome.Welcome
 
+
 ===========================================================
 TimeApp
 ===========================================================
 // Windows Command Prompt: Compiling the TimeApp 
-javac -d mods/com.deitel.timelibrary ^
-   src/com.deitel.timelibrary/module-info.java ^
-   src/com.deitel.timelibrary/com/deitel/timelibrary/Time1.java
+javac -d mods\com.deitel.timelibrary ^
+   src\com.deitel.timelibrary\module-info.java ^
+   src\com.deitel.timelibrary\com\deitel\timelibrary\Time1.java
 
-javac --module-path mods -d mods/com.deitel.timetest ^
-   src/com.deitel.timetest/module-info.java ^
-   src/com.deitel.timetest/com/deitel/timetest/Time1Test.java
+javac --module-path mods -d mods\com.deitel.timetest ^
+   src\com.deitel.timetest\module-info.java ^
+   src\com.deitel.timetest\com\deitel\timetest\Time1Test.java
 
 // Windows PowerShell: Compiling the TimeApp 
-javac -d mods/com.deitel.timelibrary `
-   src/com.deitel.timelibrary/module-info.java `
-   src/com.deitel.timelibrary/com/deitel/timelibrary/Time1.java
+javac -d mods\com.deitel.timelibrary `
+   src\com.deitel.timelibrary\module-info.java `
+   src\com.deitel.timelibrary\com\deitel\timelibrary\Time1.java
 
-javac --module-path mods -d mods/com.deitel.timetest `
-   src/com.deitel.timetest/module-info.java `
-   src/com.deitel.timetest/com/deitel/timetest/Time1Test.java
+javac --module-path mods -d mods\com.deitel.timetest `
+   src\com.deitel.timetest\module-info.java `
+   src\com.deitel.timetest\com\deitel\timetest\Time1Test.java
 
 // macOS: Compiling the TimeApp 
 javac -d mods/com.deitel.timelibrary \
@@ -129,20 +122,20 @@ java --module-path mods \
    -m com.deitel.timetest/com.deitel.timetest.Time1Test
 
 // Windows Command Prompt: Packaging the TimeApp's modules JAR files
-jar --create -f jars/com.deitel.timelibrary.jar ^
-   -C mods/com.deitel.timelibrary .
+jar --create -f jars\com.deitel.timelibrary.jar ^
+   -C mods\com.deitel.timelibrary .
 
-jar --create -f jars/com.deitel.timetest.jar ^
+jar --create -f jars\com.deitel.timetest.jar ^
    --main-class com.deitel.timetest.Time1Test ^
-   -C mods/com.deitel.timetest .
+   -C mods\com.deitel.timetest .
 
 // Windows PowerShell: Packaging the WelcomeApp's module in a JAR file 
-jar --create -f jars/com.deitel.timelibrary.jar `
-   -C mods/com.deitel.timelibrary .
+jar --create -f jars\com.deitel.timelibrary.jar `
+   -C mods\com.deitel.timelibrary .
 
-jar --create -f jars/com.deitel.timetest.jar `
+jar --create -f jars\com.deitel.timetest.jar `
    --main-class com.deitel.timetest.Time1Test `
-   -C mods/com.deitel.timetest .
+   -C mods\com.deitel.timetest .
 
 // macOS: Packaging the WelcomeApp's module in a JAR file 
 jar --create -f jars/com.deitel.timelibrary.jar \
@@ -162,18 +155,18 @@ CircularDependency
 // Windows Command Prompt: Compiling the CircularDependency example to show errors
 javac --module-source-path src ^
    --module-path mods -d mods ^
-   src/module1/module-info.java ^
-   src/module1/package1/Class1.java ^
-   src/module2/module-info.java ^
-   src/module2/package2/Class2.java
+   src\module1\module-info.java ^
+   src\module1\package1\Class1.java ^
+   src\module2\module-info.java ^
+   src\module2\package2\Class2.java
 
 // Windows PowerShell: Compiling the CircularDependency example to show errors
 javac --module-source-path src `
    --module-path mods -d mods `
-   src/module1/module-info.java `
-   src/module1/package1/Class1.java `
-   src/module2/module-info.java `
-   src/module2/package2/Class2.java
+   src\module1\module-info.java `
+   src\module1\package1\Class1.java `
+   src\module2\module-info.java `
+   src\module2\package2\Class2.java
 
 // macOS: Compiling the CircularDependency example to show errors
 javac --module-source-path src \
@@ -187,33 +180,33 @@ javac --module-source-path src \
 VideoPlayer
 ===========================================================
 // Windows Command Prompt: Compiling the VideoPlayer 
-javac --module-path "%PATH_TO_FX%";mods ^
-   -d mods/com.deitel.videoplayer ^
-   src/com.deitel.videoplayer/module-info.java ^
-   src/com.deitel.videoplayer/com/deitel/videoplayer/*.java
+javac --module-path "%PATH_TO_FX%;mods" ^
+   -d mods\com.deitel.videoplayer ^
+   src\com.deitel.videoplayer\module-info.java ^
+   src\com.deitel.videoplayer\com\deitel\videoplayer\*.java
 
 // Windows PowerShell: Compiling the VideoPlayer 
-javac --module-path "$env:PATH_TO_FX";mods `
-   -d mods/com.deitel.videoplayer `
-   src/com.deitel.videoplayer/module-info.java `
-   src/com.deitel.videoplayer/com/deitel/videoplayer/*.java
+javac --module-path "$env:PATH_TO_FX;mods" `
+   -d mods\com.deitel.videoplayer `
+   src\com.deitel.videoplayer\module-info.java `
+   src\com.deitel.videoplayer\com\deitel\videoplayer\*.java
 
 // macOS: Compiling the VideoPlayer 
-javac --module-path "$PATH_TO_FX":mods \
-   -d mods/com.deitel.videoplayer \ 
+javac --module-path "$PATH_TO_FX:mods" \
+   -d mods/com.deitel.videoplayer \
    src/com.deitel.videoplayer/module-info.java \
-   src/com.deitel.videoplayer/com/deitel/videoplayer/*.java
+   src/com.deitel.videoplayer/com/deitel/videoplayer/*.java 
 
 // Windows Command Prompt: Running the VideoPlayer 
-java --module-path "%PATH_TO_FX%";mods \       
+java --module-path "%PATH_TO_FX%;mods" ^
    -m com.deitel.videoplayer/com.deitel.videoplayer.VideoPlayer
 
 // Windows PowerShell: Running the VideoPlayer 
-java --module-path "$env:PATH_TO_FX";mods \       
+java --module-path "$env:PATH_TO_FX;mods" `
    -m com.deitel.videoplayer/com.deitel.videoplayer.VideoPlayer
 
 // macOS: Running the VideoPlayer 
-java --module-path "$PATH_TO_FX":mods \       
+java --module-path "$PATH_TO_FX:mods" \
    -m com.deitel.videoplayer/com.deitel.videoplayer.VideoPlayer
 
 
@@ -222,49 +215,171 @@ java --module-path "$PATH_TO_FX":mods \
 Custom Runtime Containing Only java.base 
 ===========================================================
 // Windows Command Prompt
-jlink --module-path "%JAVA_HOME%"/jmods --add-modules java.base ^
+jlink --module-path "%JAVA_HOME%\jmods" --add-modules java.base ^
    --output javabaseruntime
 
 // Windows PowerShell
-jlink --module-path "$env:JAVA_HOME"/jmods --add-modules java.base `
+jlink --module-path "$env:JAVA_HOME\jmods" --add-modules java.base `
    --output javabaseruntime
 
 // macOS
-jlink --module-path "$JAVA_HOME"/jmods --add-modules java.base \
+jlink --module-path "$JAVA_HOME/jmods" --add-modules java.base \
    --output javabaseruntime
 
 
 ===========================================================
-Custom runtime for the java.sql module and its dependencies
+Executing the Welcome App Using javabaseruntime
 ===========================================================
 // Windows Command Prompt
-jlink --module-path "%JAVA_HOME%"/jmods ^
-   --add-modules java.sql --output javasqlruntime
+javabaseruntime/bin/java --module-path mods ^
+   --module com.deitel.welcome/com.deitel.welcome.Welcome
 
 // Windows PowerShell
-jlink --module-path "$env:JAVA_HOME"/jmods 
-   --add-modules java.sql --output javasqlruntime
+javabaseruntime/bin/java --module-path mods `
+   --module com.deitel.welcome/com.deitel.welcome.Welcome
 
 // macOS
-jlink --module-path "$JAVA_HOME"/jmods \
-   --add-modules java.sql --output javasqlruntime
+javabaseruntime/bin/java --module-path mods \
+   --module com.deitel.welcome/com.deitel.welcome.Welcome
+
+
+===========================================================
+Executing the Welcome App Using javabaseruntime
+===========================================================
+// Windows Command Prompt
+javabaseruntime/bin/java --module-path mods ^
+   --module com.deitel.welcome/com.deitel.welcome.Welcome
+
+// Windows PowerShell
+javabaseruntime/bin/java --module-path mods `
+   --module com.deitel.welcome/com.deitel.welcome.Welcome
+
+// macOS
+javabaseruntime/bin/java --module-path mods \
+   --module com.deitel.welcome/com.deitel.welcome.Welcome
+
+
+===========================================================
+Listing the Modules in javabaseruntime
+===========================================================
+// Windows 
+javabaseruntime\bin\java --list-modules
+
+// macOS
+javabaseruntime/bin/java --list-modules
 
 
 ===========================================================
 Custom runtime that includes the Welcome app's code
 ===========================================================
 // Windows Command Prompt
-jlink --module-path jars;"%JAVA_HOME%"/jmods ^
+jlink --module-path "jars;%JAVA_HOME%\jmods" ^
    --add-modules com.deitel.welcome --output welcomeruntime
 
 // Windows PowerShell
-jlink --module-path jars;"$env:JAVA_HOME"/jmods 
+jlink --module-path "jars;$env:JAVA_HOME\jmods" `
    --add-modules com.deitel.welcome --output welcomeruntime
 
 // macOS
-jlink --module-path jars:"$JAVA_HOME"/jmods \
+jlink --module-path "jars:$JAVA_HOME/jmods" \
    --add-modules com.deitel.welcome --output welcomeruntime
 
+
+===========================================================
+Compiling the MathTutor
+===========================================================
+// Windows Command Prompt
+javac -d mods\com.deitel.mathtutor ^
+   src\com.deitel.mathtutor\module-info.java ^
+   src\com.deitel.mathtutor\com\deitel\mathtutor\MathTutor.java ^
+   src\com.deitel.mathtutor\com\deitel\mathtutor\spi\*.java
+
+// Windows PowerShell 
+javac -d mods\com.deitel.mathtutor `
+   src\com.deitel.mathtutor\module-info.java `
+   src\com.deitel.mathtutor\com\deitel\mathtutor\MathTutor.java `
+   src\com.deitel.mathtutor\com\deitel\mathtutor\spi\*.java
+
+// macOS
+javac -d mods/com.deitel.mathtutor \
+   src/com.deitel.mathtutor/module-info.java \
+   src/com.deitel.mathtutor/com/deitel/mathtutor/MathTutor.java \
+   src/com.deitel.mathtutor/com/deitel/mathtutor/spi/*.java
+
+===========================================================
+Running the MathTutor
+===========================================================
+// Windows Command Prompt 
+java --module-path mods\com.deitel.mathtutor ^
+   -m com.deitel.mathtutor/com.deitel.mathtutor.MathTutor
+
+// Windows PowerShell
+java --module-path mods\com.deitel.mathtutor `
+   -m com.deitel.mathtutor/com.deitel.mathtutor.MathTutor
+
+// macOS
+java --module-path mods/com.deitel.mathtutor \
+   -m com.deitel.mathtutor/com.deitel.mathtutor.MathTutor
+
+===========================================================
+Compiling the AdditionProblemProvider 
+===========================================================
+// Windows Command Prompt
+javac --module-path mods -d mods\com.deitel.additionprovider ^
+   src\com.deitel.additionprovider\module-info.java ^
+   src\com.deitel.additionprovider\com\deitel\additionprovider\^
+AdditionProblemProvider.java
+
+// Windows PowerShell
+javac --module-path mods -d mods\com.deitel.additionprovider `
+   src\com.deitel.additionprovider\module-info.java `
+   src\com.deitel.additionprovider\com\deitel\additionprovider\`
+AdditionProblemProvider.java
+
+// macOS 
+javac --module-path mods -d mods/com.deitel.additionprovider \
+   src/com.deitel.additionprovider/module-info.java \
+   src/com.deitel.additionprovider/com/deitel/additionprovider/\
+AdditionProblemProvider.java
+
+===========================================================
+Running the MathTutor with Providers
+===========================================================
+// Windows Command Prompt 
+java --module-path mods ^
+   -m com.deitel.mathtutor/com.deitel.mathtutor.MathTutor
+
+// Windows PowerShell
+java --module-path mods `
+   -m com.deitel.mathtutor/com.deitel.mathtutor.MathTutor
+
+// macOS
+java --module-path mods \
+   -m com.deitel.mathtutor/com.deitel.mathtutor.MathTutor
+
+===========================================================
+Compiling the MultiplicationProblemProvider 
+===========================================================
+// Windows Command Prompt
+javac --module-path mods ^
+   -d mods\com.deitel.multiplicationprovider ^
+   src\com.deitel.multiplicationprovider\module-info.java ^
+   src\com.deitel.multiplicationprovider\com\deitel\^
+multiplicationprovider\MultiplicationProblemProvider.java
+
+// Windows PowerShell: Compiling the MultiplicationProblemProvider 
+javac --module-path mods `
+   -d mods\com.deitel.multiplicationprovider `
+   src\com.deitel.multiplicationprovider\module-info.java `
+   src\com.deitel.multiplicationprovider\com\deitel\`
+multiplicationprovider\MultiplicationProblemProvider.java
+
+// macOS: Compiling the MultiplicationProblemProvider 
+javac --module-path mods \
+   -d mods/com.deitel.multiplicationprovider \
+   src/com.deitel.multiplicationprovider/module-info.java \
+   src/com.deitel.multiplicationprovider/com/deitel/\
+multiplicationprovider/MultiplicationProblemProvider.java
 
 ===========================================================
 JDEPS COMMANDS FOR PRODUCING .dot FILES 
@@ -278,15 +393,15 @@ TimeApp:
 jdeps --module-path mods --dot-output . jars/com.deitel.timetest.jar 
 
 VideoPlayer (Windows Command Prompt): 
-jdeps --module-path %PATH_TO_FX%;mods --dot-output . ^
+jdeps --module-path "%PATH_TO_FX%";mods --dot-output . ^
    --recursive --module com.deitel.videoplayer
  
 VideoPlayer (Windows PowerShell): 
-jdeps --module-path $env:PATH_TO_FX;mods --dot-output . `
+jdeps --module-path "$env:PATH_TO_FX";mods --dot-output . `
    --recursive --module com.deitel.videoplayer
 
 VideoPlayer (macOS): 
-jdeps --module-path $PATH_TO_FX:mods --dot-output . \
+jdeps --module-path "$PATH_TO_FX":mods --dot-output . \
    --recursive --module com.deitel.videoplayer
 
 
@@ -331,4 +446,7 @@ dot -Tpng summary.dot -Gdpi=600 -Nfontname="Open Sans" `
 VideoPlayer: macOS
 dot -Tpng summary.dot -Gdpi=600 -Nfontname="Open Sans" \
    -Nshape=box -o VideoPlayer.png
+
+
+
 
