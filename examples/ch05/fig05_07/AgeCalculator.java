@@ -1,4 +1,4 @@
-// Fig. 5.8: AgeCalculator.java
+// Fig. 5.7: AgeCalculator.java
 // Using the Date/Time API to calculate how long the user has
 // been alive and determine the day of the week they were born.
 import java.time.Duration; 
