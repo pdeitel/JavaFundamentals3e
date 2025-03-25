@@ -12,9 +12,9 @@ public class DivideByZeroNoExceptionHandling {
       var input = new Scanner(System.in); 
 
       System.out.print("Enter an integer numerator: ");
-      int numerator = scanner.nextInt();
+      int numerator = input.nextInt();
       System.out.print("Enter an integer denominator: ");
-      int denominator = scanner.nextInt();
+      int denominator = input.nextInt();
 
       int result = quotient(numerator, denominator);
       System.out.printf(
