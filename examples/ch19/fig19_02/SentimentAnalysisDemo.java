@@ -1,32 +1,55 @@
 // Fig. 19.2: SentimentAnalysisDemo.java
 // Analyzing the sentiment of a transcript.
-import deitel.openai.OpenAIUtilities;
-import deitel.openai.OpenAIUtilities.Message;
-
+import com.openai.client.OpenAIClient;
+import com.openai.client.okhttp.OpenAIOkHttpClient;
+import com.openai.models.ChatModel;
+import com.openai.models.responses.Response;
+import com.openai.models.responses.ResponseCreateParams;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 public class SentimentAnalysisDemo {
+   // create an OpenAIClient object
+   private final static OpenAIClient client = 
+      OpenAIOkHttpClient.fromEnv();
+
    public static void main(String[] args) throws Exception {
       // load transcript.txt
       Path transcriptPath = Path.of(System.getProperty("user.home"),
          "Documents", "examples", "ch19", "resources", "transcript.txt");
       String transcript = Files.readString(transcriptPath);
 
-      // analyze text sentiment with OpenAI's gpt-4o model
+      // analyze text sentiment with OpenAI's gpt-5-mini model
       System.out.println("ANALYZE SENTIMENT");
-      String sentiment = OpenAIUtilities.chat("gpt-4o",
-         List.of(
-            new Message("system", """
-               You are an expert in sentiment analysis. Analyze the
-               following presentation transcript and state whether
-               the sentiment is positive, negative, or neutral.
-               Explain your analysis."""),
-            new Message("user", transcript)
-         )
-      );
+      String sentiment = createResponse(ChatModel.GPT_5_MINI, """
+         You are a sentiment-analysis expert. Determine the provided 
+         transcript's sentiment. Explain your analysis.""", transcript);
       System.out.printf("%s%n%n", sentiment);
+   }
+
+   // perform a Responses API request
+   public static String createResponse(
+      ChatModel model, String instructions, String input) {
+
+      // specify the Responses API parameters
+      var params = ResponseCreateParams.builder()
+         .model(model)
+         .instructions(instructions)
+         .input(input)
+         .build();
+
+      // initiate the request and wait for the response
+      Response response = client.responses().create(params);
+
+      // use lambdas and streams to get the output text
+      String outputText = response.output().stream()
+         .flatMap(item -> item.message().stream())
+         .flatMap(message -> message.content().stream())
+         .flatMap(content -> content.outputText().stream())
+         .map(output -> output.text())
+         .findFirst().orElseThrow();
+
+      return outputText; 
    }
 }
 

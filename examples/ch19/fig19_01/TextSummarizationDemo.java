@@ -1,51 +1,68 @@
 // Fig. 19.1: TextSummarizationDemo.java
 // Summarizing a transcript as an abstract paragraph and key points.
-import deitel.openai.OpenAIUtilities;
-import deitel.openai.OpenAIUtilities.Message;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
+import com.openai.client.OpenAIClient;
+import com.openai.client.okhttp.OpenAIOkHttpClient;
+import com.openai.models.ChatModel;
+import com.openai.models.responses.Response;
+import com.openai.models.responses.ResponseCreateParams;
+import java.nio.file.Files; 
+import java.nio.file.Path; 
 
 public class TextSummarizationDemo {
+   // create an OpenAIClient object
+   private final static OpenAIClient client = 
+      OpenAIOkHttpClient.fromEnv();
+
    public static void main(String[] args) throws Exception {
       // load transcript.txt
       Path transcriptPath = Path.of(System.getProperty("user.home"),
          "Documents", "examples", "ch19", "resources", "transcript.txt");
       String transcript = Files.readString(transcriptPath);
 
-      // get a summary abstract with OpenAI's gpt-4o model
+      // get a summary abstract with the OpenAI gpt-5-mini model
       System.out.println("CREATE A SUMMARY ABSTRACT OF A TRANSCRIPT");
-      String summaryAbstract = OpenAIUtilities.chat("gpt-4o",
-         List.of(
-            new Message("system", """
-               Given a transcript of a technical presentation, create a 
-               concise, clear summary abstract in paragraph form, written 
-               in a direct style that avoids prepositional phrases and 
-               uses straightforward sentence structures. Focus on the key 
-               points without referring to the speaker. Capture the key 
-               ideas, so a person can understand it without reading the 
-               full transcript."""),
-            new Message("user", transcript)
-         )
-      );
+      String summaryAbstract = createResponse(ChatModel.GPT_5_MINI, """
+         Given a Java technical presentation's transcript, create a
+         summary abstract paragraph. Use straightforward sentences.
+         Spell language features and method names correctly.
+         Do not refer to the speaker.""", transcript);
       System.out.printf("%s%n%n", summaryAbstract);
 
-      // get key points with OpenAI's gpt-4o model
+      // get key points with the OpenAI gpt-5-mini model
       System.out.println("EXTRACT KEY POINTS FROM A TRANSCRIPT");
-      String keyPoints = OpenAIUtilities.chat("gpt-4o",
-         List.of(
-            new Message("system", """
-               Given a transcript of a technical presentation, identify 
-               the top 5 key points and present them as a numbered list.  
-               For each point, use a concise, direct, clear, and
-               straightforward sentence. Avoid prepositional phrases."""),
-            new Message("user", transcript)
-         )
-      );
+      String keyPoints = createResponse(ChatModel.GPT_5_MINI, """
+         Given a Java technical presentation's transcript,
+         return a numbered list of the top 5 key points.""", transcript);
       System.out.printf("%s%n", keyPoints);
    }
+
+   // perform a Responses API request
+   public static String createResponse(
+      ChatModel model, String instructions, String input) {
+
+      // specify the Responses API parameters
+      var params = ResponseCreateParams.builder()
+         .model(model)
+         .instructions(instructions)
+         .input(input)
+         .build();
+
+      // initiate the request and wait for the response
+      Response response = client.responses().create(params);
+
+      // use lambdas and streams to get the output text
+      String outputText = response.output().stream()
+         .flatMap(item -> item.message().stream())
+         .flatMap(message -> message.content().stream())
+         .flatMap(content -> content.outputText().stream())
+         .map(output -> output.text())
+         .findFirst().orElseThrow();
+
+      return outputText; 
+   }
 }
+
+
 
 /**************************************************************************
  * (C) Copyright 1992-2025 by Deitel & Associates, Inc. and               *

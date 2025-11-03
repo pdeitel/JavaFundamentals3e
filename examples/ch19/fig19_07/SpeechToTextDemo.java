@@ -1,32 +1,51 @@
 // Fig. 19.7: SpeechToTextDemo.java
 // Transcribing audio files to text.
-import deitel.openai.OpenAIUtilities;
+import com.openai.client.OpenAIClient;
+import com.openai.client.okhttp.OpenAIOkHttpClient;
+import com.openai.models.audio.AudioModel;
+import com.openai.models.audio.transcriptions.Transcription;
+import com.openai.models.audio.transcriptions.TranscriptionCreateParams;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 
 public class SpeechToTextDemo {
+   // create an OpenAIClient object
+   private final static OpenAIClient client = 
+      OpenAIOkHttpClient.fromEnv();
+
    public static void main(String[] args) throws Exception {
       // get path to resources folder
-      Path resourcesFolder = Path.of(System.getProperty("user.home"),
+      Path resourcesPath = Path.of(System.getProperty("user.home"),
          "Documents", "examples", "ch19", "resources");
 
       // get path to audio file WhatsNewInJavaOverview.m4a
-      Path audioPath = Path.of(resourcesFolder.toString(),
-         "WhatsNewInJavaOverview.m4a");
+      Path audioPath = resourcesPath.resolve("01_01.m4a");
 
       // convert speech to text with OpenAI's whisper-1 model
       System.out.println("Waiting for Transcription...");
-      String transcript = OpenAIUtilities.speechToText(
-         "whisper-1", audioPath.toString());
+      String transcript = 
+         speechToText(AudioModel.GPT_4O_TRANSCRIBE, audioPath);
       System.out.printf("TRANSCRIPT:%n%s%n", transcript);
 
       // write the transcription to a file, overwriting it if it exists
-      Path transcriptPath = Path.of(resourcesFolder.toString(),
-         "outputs", "WhatsNewInJavaOverview.txt");
-      Files.writeString(transcriptPath, transcript,
-         StandardOpenOption.CREATE,
-         StandardOpenOption.TRUNCATE_EXISTING);
+      Path transcriptPath = 
+         Path.of(resourcesPath.toString(), "outputs", "01_01.txt");
+      Files.writeString(transcriptPath, transcript);
+   }
+
+   // convert audio to text transcription
+   public static String speechToText(AudioModel model, Path audioPath) {
+      // specify the Audio API parameters for a transcription request
+      var params = TranscriptionCreateParams.builder()
+         .file(audioPath)
+         .model(model)
+         .build();
+
+      // initiate the request and wait for the response
+      Transcription transcription = 
+         client.audio().transcriptions().create(params).asTranscription();
+      
+      return transcription.text(); // return the transcription
    }
 }
 

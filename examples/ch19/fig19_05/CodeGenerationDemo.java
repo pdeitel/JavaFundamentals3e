@@ -1,51 +1,63 @@
 // Fig. 19.5: CodeGenerationDemo.java
 // Generating code for a die-rolling simulation.
-import deitel.openai.OpenAIUtilities;
-import deitel.openai.OpenAIUtilities.Message;
+import com.openai.client.OpenAIClient;
+import com.openai.client.okhttp.OpenAIOkHttpClient;
+import com.openai.models.ChatModel;
+import com.openai.models.responses.Response;
+import com.openai.models.responses.ResponseCreateParams;
 import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CodeGenerationDemo {
+   // create an OpenAIClient object
+   private final static OpenAIClient client = 
+      OpenAIOkHttpClient.fromEnv();
+
    public static void main(String[] args) throws Exception {
       // path to store Java source-code that's generated
-      Path codePath = Path.of(System.getProperty("user.home"),
+      Path outputsPath = Path.of(System.getProperty("user.home"),
          "Documents", "examples", "ch19", "resources", "outputs");
 
-      // generate Java code with OpenAI's gpt-4o model
+      // generate Java code with OpenAI's gpt-5 model
       System.out.println("GENERATE DIE ROLLING SIMULATION CODE");
-      String response = OpenAIUtilities.chat("gpt-4o",
-         List.of(
-            new Message("system",
-               "You are an expert programmer in Java's latest version."),
-            new Message("user", """
-               Create a Java class named RollDie that simulates rolling
-               a die 600,000,000 times as quickly as possible. Summarize 
-               the frequencies and display them left-aligned in a  
-               two-column format with the column heads "Face" and 
-               "Frequency". Avoid loops. In the code, use 3-space indents
-               and restrict each code line to 74 characters or fewer.""")
-         )
-      );
+      String response = createResponse(ChatModel.GPT_5,
+         "You are an expert programmer in Java's latest version.", 
+         """
+         Create a Java class named RollDie that simulates rolling a die 
+         600,000,000 times using all available CPU cores. Avoid loops. 
+         Summarize the frequencies and nicely format them right-aligned  
+         under the column heads "Face" and "Frequency". Return only the 
+         code with no markdown formatting. Use three-space indents and 
+         a maximum code line length of 74 characters.""");
       System.out.printf("%s%n%n", response);
 
-      // use regex to extract the code and write it to disk;
-      // the Pattern extracts all the text between the delimiters
-      // "```java" and "```"
-      Pattern pattern =
-         Pattern.compile("```java\\s+(.*?)```", Pattern.DOTALL);
-      Matcher matcher = pattern.matcher(response);
+      // write the code into RollDie.java
+      Files.writeString(outputsPath.resolve("RollDie.java"), response);
+   }
 
-      // if there was a match, write it into the file RollDie.java
-      if (matcher.find()) {
-         Files.writeString(
-            Path.of(codePath.toString(), "RollDie.java"),
-            matcher.group(1).trim(),
-            StandardOpenOption.TRUNCATE_EXISTING);
-      }
+   // perform a Responses API request
+   public static String createResponse(
+      ChatModel model, String instructions, String input) {
+
+      // specify the Responses API parameters
+      var params = ResponseCreateParams.builder()
+         .model(model)
+         .instructions(instructions)
+         .input(input)
+         .build();
+
+      // initiate the request and wait for the response
+      Response response = client.responses().create(params);
+
+      // use lambdas and streams to get the output text
+      String outputText = response.output().stream()
+         .flatMap(item -> item.message().stream())
+         .flatMap(message -> message.content().stream())
+         .flatMap(content -> content.outputText().stream())
+         .map(output -> output.text())
+         .findFirst().orElseThrow();
+
+      return outputText; 
    }
 }
 

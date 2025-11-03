@@ -1,0 +1,28 @@
+{
+  "folders": [
+    { "path": "fig19_01" },
+    { "path": "fig19_02" },
+    { "path": "fig19_03" },
+    { "path": "fig19_04" },
+    { "path": "fig19_05" },
+    { "path": "fig19_06" },
+    { "path": "fig19_07" },
+    { "path": "fig19_08" },
+    { "path": "fig19_09" },
+    { "path": "fig19_10" },
+    { "path": "fig19_11" },
+    { "path": "fig19_12" },
+    { "path": "fig19_13" }
+  ],
+  "settings": {
+    // IMPORTANT: path is relative to EACH folder (fig19_##), so go up one level
+    "java.project.referencedLibraries": [
+      "${workspaceFolder}/../libs/GenAIDependencies.jar"
+    ],
+    // Optional but helpful: treat the folder itself as the source root
+    "java.project.sourcePaths": ["."],
+    "java.server.launchMode": "Standard",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.debug.settings.console": "integratedTerminal"
+  }
+}
