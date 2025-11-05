@@ -18,7 +18,7 @@ public class SpeechToTextDemo {
       Path resourcesPath = Path.of(System.getProperty("user.home"),
          "Documents", "examples", "ch19", "resources");
 
-      // get path to audio file WhatsNewInJavaOverview.m4a
+      // get path to audio file 01_01.m4a
       Path audioPath = resourcesPath.resolve("01_01.m4a");
 
       // convert speech to text with OpenAI's whisper-1 model
