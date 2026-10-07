@@ -15,13 +15,13 @@ public class ArraysAndStreams {
       System.out.printf("Sorted values: %s%n", 
          Arrays.stream(values)              
                .sorted()                    
-               .collect(Collectors.toList()));
+               .collect(Collectors.toList())); // result List is mutable
 
       // values greater than 4
       List<Integer> greaterThan4 =           
          Arrays.stream(values)               
                .filter(value -> value > 4)   
-               .toList();
+               .toList(); // result List is immutable
       System.out.printf("Values greater than 4: %s%n", greaterThan4);
 
       // filter values greater than 4 then sort the results

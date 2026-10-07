@@ -11,7 +11,7 @@ public class IntStreamOperations {
       System.out.print("Original values: ");
       System.out.println(
          IntStream.of(values)
-                  .mapToObj(String::valueOf)
+                  .mapToObj(String::valueOf) 
                   .collect(Collectors.joining(" ")));
 
       // count, min, max, sum and average of the values

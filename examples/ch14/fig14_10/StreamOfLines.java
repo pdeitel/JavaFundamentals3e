@@ -15,7 +15,8 @@ public class StreamOfLines {
 
       // count occurrences of each word in a Stream<String> sorted by word
       Map<String, Long> wordCounts =                             
-         Files.lines(Paths.get("Chapter2Paragraph.txt"))         
+         //Files.lines(Paths.get("Chapter2Paragraph.txt"))         
+         Files.lines(Paths.get("fig14_10/Chapter2Paragraph.txt"))         
               .flatMap(line -> pattern.splitAsStream(line))      
               .collect(Collectors.groupingBy(String::toLowerCase,
                  TreeMap::new, Collectors.counting()));          
@@ -26,9 +27,9 @@ public class StreamOfLines {
          .collect(                                                  
             Collectors.groupingBy(entry -> entry.getKey().charAt(0),
                TreeMap::new, Collectors.toList()))                  
-         .forEach((letter, wordList) -> {                           
+         .forEach((letter, frequenciesList) -> {                           
             System.out.printf("%n%C%n", letter);                    
-            wordList.stream().forEach(word -> System.out.printf(    
+            frequenciesList.stream().forEach(word -> System.out.printf(    
                "%13s: %d%n", word.getKey(), word.getValue()));      
          });
    }
