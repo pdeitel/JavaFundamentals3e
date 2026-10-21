@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -112,7 +111,7 @@ public class FileChooserTestController {
 
 
 /**************************************************************************
- * (C) Copyright 1992-2025 by Deitel & Associates, Inc. and               *
+ * (C) Copyright 1992-2026 by Deitel & Associates, Inc. and               *
  * Pearson Education, Inc. All Rights Reserved.                           *
  *                                                                        *
  * DISCLAIMER: The authors and publisher of this book have used their     *

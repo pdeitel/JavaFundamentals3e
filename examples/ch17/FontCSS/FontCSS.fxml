@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox styleClass="vbox" stylesheets="@FontCSS.css" 
-   xmlns="http://javafx.com/javafx/23" 
+   xmlns="http://javafx.com/javafx/27" 
    xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="label1" text="Arial 14pt bold" />

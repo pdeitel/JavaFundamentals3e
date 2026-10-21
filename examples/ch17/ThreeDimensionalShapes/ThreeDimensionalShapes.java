@@ -12,7 +12,7 @@ public class ThreeDimensionalShapes extends Application {
          FXMLLoader.load(getClass().getResource("ThreeDimensionalShapes.fxml"));
       
       Scene scene = new Scene(root);
-      stage.setTitle("Draw shapes with Canvas");
+      stage.setTitle("3D Shapes");
       stage.setScene(scene);
       stage.show();
    }

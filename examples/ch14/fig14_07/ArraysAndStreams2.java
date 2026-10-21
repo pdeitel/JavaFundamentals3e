@@ -35,7 +35,7 @@ public class ArraysAndStreams2 {
 
 
 /**************************************************************************
- * (C) Copyright 1992-2025 by Deitel & Associates, Inc. and               *
+ * (C) Copyright 1992-2026 by Deitel & Associates, Inc. and               *
  * Pearson Education, Inc. All Rights Reserved.                           *
  *                                                                        *
  * DISCLAIMER: The authors and publisher of this book have used their     *

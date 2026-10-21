@@ -1,7 +1,5 @@
 // Fig. 16.4: ColorChooserController.java
 // Controller for the ColorChooser app
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -68,7 +66,7 @@ public class ColorChooserController {
 
 
 /**************************************************************************
- * (C) Copyright 1992-2025 by Deitel & Associates, Inc. and               *
+ * (C) Copyright 1992-2026 by Deitel & Associates, Inc. and               *
  * Pearson Education, Inc. All Rights Reserved.                           *
  *                                                                        *
  * DISCLAIMER: The authors and publisher of this book have used their     *

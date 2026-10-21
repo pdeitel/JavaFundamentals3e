@@ -1,6 +1,5 @@
 // Fig. 16.6: CoverViewerController.java
 // Controller for Cover Viewer application
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +17,7 @@ public class CoverViewerController {
       FXCollections.observableArrayList();
 
    // initialize controller
+   @FXML
    public void initialize() {
       // populate the ObservableList<Book>
       books.add(new Book("C How to Program", 
@@ -50,7 +50,7 @@ public class CoverViewerController {
 }
 
 /**************************************************************************
- * (C) Copyright 1992-2025 by Deitel & Associates, Inc. and               *
+ * (C) Copyright 1992-2026 by Deitel & Associates, Inc. and               *
  * Pearson Education, Inc. All Rights Reserved.                           *
  *                                                                        *
  * DISCLAIMER: The authors and publisher of this book have used their     *

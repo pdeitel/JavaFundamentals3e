@@ -1,0 +1,73 @@
+{
+  "folders": [
+    { "name": "ColorChooser", "path": "ColorChooser" },
+    { "name": "CoverViewer", "path": "CoverViewer" },
+    { "name": "CoverViewerCustomListView", "path": "CoverViewerCustomListView" },
+    { "name": "FileChooserTest", "path": "FileChooserTest" },
+    { "name": "Painter", "path": "Painter" }
+  ],
+  "settings": {
+    // The Java language server does not expand ${env:PATH_TO_FX} here, so this
+    // must be the absolute path to the jars in your JavaFX SDK's lib folder.
+    // (The launch configurations below can use ${env:PATH_TO_FX}, which must
+    // point to the SDK's lib folder.)
+    "java.project.referencedLibraries": [
+      "/Users/pauldeitel/Downloads/javafx-sdk-27/lib/*.jar"
+    ],
+    "java.project.sourcePaths": ["."],
+    "java.project.outputPath": "bin",
+    "java.server.launchMode": "Standard",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.debug.settings.console": "integratedTerminal"
+  },
+  "extensions": {
+    // Adds "Open in Scene Builder" to the context menu for .fxml files. Run the
+    // "Configure Scene Builder path" command once to locate Scene Builder.
+    "recommendations": ["bilalekrem.scenebuilderextension"]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "Run ColorChooser (JavaFX)",
+        "request": "launch",
+        "mainClass": "ColorChooser",
+        "cwd": "${workspaceFolder:ColorChooser}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run CoverViewer (JavaFX)",
+        "request": "launch",
+        "mainClass": "CoverViewer",
+        "cwd": "${workspaceFolder:CoverViewer}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run CoverViewerCustomListView (JavaFX)",
+        "request": "launch",
+        "mainClass": "CoverViewerCustomListView",
+        "cwd": "${workspaceFolder:CoverViewerCustomListView}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run FileChooserTest (JavaFX)",
+        "request": "launch",
+        "mainClass": "FileChooserTest",
+        "cwd": "${workspaceFolder:FileChooserTest}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run Painter (JavaFX)",
+        "request": "launch",
+        "mainClass": "Painter",
+        "cwd": "${workspaceFolder:Painter}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      }
+    ]
+  }
+}

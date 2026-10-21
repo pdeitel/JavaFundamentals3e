@@ -1,0 +1,133 @@
+{
+  "folders": [
+    { "name": "BallAnimationTimer", "path": "BallAnimationTimer" },
+    { "name": "BasicShapes", "path": "BasicShapes" },
+    { "name": "CSSTransition", "path": "CSSTransition" },
+    { "name": "CanvasShapes", "path": "CanvasShapes" },
+    { "name": "DrawStars", "path": "DrawStars" },
+    { "name": "FontCSS", "path": "FontCSS" },
+    { "name": "PolyShapes", "path": "PolyShapes" },
+    { "name": "ThreeDimensionalShapes", "path": "ThreeDimensionalShapes" },
+    { "name": "TimelineAnimation", "path": "TimelineAnimation" },
+    { "name": "TransitionAnimations", "path": "TransitionAnimations" },
+    { "name": "VideoPlayer", "path": "VideoPlayer" }
+  ],
+  "settings": {
+    // The Java language server does not expand ${env:PATH_TO_FX} here, so this
+    // must be the absolute path to the jars in your JavaFX SDK's lib folder.
+    // (The launch configurations below can use ${env:PATH_TO_FX}, which must
+    // point to the SDK's lib folder.)
+    "java.project.referencedLibraries": [
+      "/Users/pauldeitel/Downloads/javafx-sdk-27/lib/*.jar",
+      // ControlsFX (used by VideoPlayer for its ExceptionDialog)
+      "/Users/pauldeitel/Dropbox/GitHub/JavaFundamentals3e/examples/ch17/controlsfx-11.2.1.jar"
+    ],
+    "java.project.sourcePaths": ["."],
+    "java.project.outputPath": "bin",
+    "java.server.launchMode": "Standard",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.debug.settings.console": "integratedTerminal",
+    // JavaFX CSS properties use the -fx- prefix, which VS Code's web-CSS
+    // linter treats as vendor-specific properties; don't warn about them.
+    "css.lint.vendorPrefix": "ignore",
+    "css.lint.unknownVendorSpecificProperties": "ignore"
+  },
+  "extensions": {
+    // Adds "Open in Scene Builder" to the context menu for .fxml files. Run the
+    // "Configure Scene Builder path" command once to locate Scene Builder.
+    "recommendations": ["bilalekrem.scenebuilderextension"]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "Run BallAnimationTimer (JavaFX)",
+        "request": "launch",
+        "mainClass": "BallAnimationTimer",
+        "cwd": "${workspaceFolder:BallAnimationTimer}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run BasicShapes (JavaFX)",
+        "request": "launch",
+        "mainClass": "BasicShapes",
+        "cwd": "${workspaceFolder:BasicShapes}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run CSSTransition (JavaFX)",
+        "request": "launch",
+        "mainClass": "CSSTransition",
+        "cwd": "${workspaceFolder:CSSTransition}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run CanvasShapes (JavaFX)",
+        "request": "launch",
+        "mainClass": "CanvasShapes",
+        "cwd": "${workspaceFolder:CanvasShapes}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run DrawStars (JavaFX)",
+        "request": "launch",
+        "mainClass": "DrawStars",
+        "cwd": "${workspaceFolder:DrawStars}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run FontCSS (JavaFX)",
+        "request": "launch",
+        "mainClass": "FontCSS",
+        "cwd": "${workspaceFolder:FontCSS}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run PolyShapes (JavaFX)",
+        "request": "launch",
+        "mainClass": "PolyShapes",
+        "cwd": "${workspaceFolder:PolyShapes}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run ThreeDimensionalShapes (JavaFX)",
+        "request": "launch",
+        "mainClass": "ThreeDimensionalShapes",
+        "cwd": "${workspaceFolder:ThreeDimensionalShapes}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run TimelineAnimation (JavaFX)",
+        "request": "launch",
+        "mainClass": "TimelineAnimation",
+        "cwd": "${workspaceFolder:TimelineAnimation}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run TransitionAnimations (JavaFX)",
+        "request": "launch",
+        "mainClass": "TransitionAnimations",
+        "cwd": "${workspaceFolder:TransitionAnimations}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run VideoPlayer (JavaFX)",
+        "request": "launch",
+        "mainClass": "VideoPlayer",
+        "cwd": "${workspaceFolder:VideoPlayer}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml,javafx.media"
+      }
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "folders": [
+    { "name": "Welcome", "path": "Welcome" },
+    { "name": "TipCalculator", "path": "TipCalculator" }
+  ],
+  "settings": {
+    // The Java language server does not expand ${env:PATH_TO_FX} here, so this
+    // must be the absolute path to the jars in your JavaFX SDK's lib folder.
+    // (The launch configuration below can use ${env:PATH_TO_FX}, which must
+    // point to the SDK's lib folder.)
+    "java.project.referencedLibraries": [
+      "/Users/pauldeitel/Downloads/javafx-sdk-27/lib/*.jar"
+    ],
+    "java.project.sourcePaths": ["."],
+    "java.project.outputPath": "bin",
+    "java.server.launchMode": "Standard",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.debug.settings.console": "integratedTerminal"
+  },
+  "extensions": {
+    // Adds "Open in Scene Builder" to the context menu for .fxml files. Run the
+    // "Configure Scene Builder path" command once to locate Scene Builder.
+    "recommendations": ["bilalekrem.scenebuilderextension"]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "Run TipCalculator (JavaFX)",
+        "request": "launch",
+        "mainClass": "TipCalculator",
+        "cwd": "${workspaceFolder:TipCalculator}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      }
+    ]
+  }
+}

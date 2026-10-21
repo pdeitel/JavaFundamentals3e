@@ -55,7 +55,7 @@ public class TipCalculatorController {
    // if present, called by FXMLLoader to initialize the controller
    @FXML
    private void initialize() {
-      // 0-4 rounds down, 5-9 rounds up 
+      // round to nearest even number
       currency.setRoundingMode(RoundingMode.HALF_EVEN);
       
       // listener for changes to tipPercentageSlider's value
@@ -70,7 +70,7 @@ public class TipCalculatorController {
 }
 
 /**************************************************************************
- * (C) Copyright 1992-2018 by Deitel & Associates, Inc. and               *
+ * (C) Copyright 1992-2026 by Deitel & Associates, Inc. and               *
  * Pearson Education, Inc. All Rights Reserved.                           *
  *                                                                        *
  * DISCLAIMER: The authors and publisher of this book have used their     *
