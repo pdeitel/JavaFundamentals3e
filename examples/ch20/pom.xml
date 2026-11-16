@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This pom.xml exists so VS Code's Java extension imports the chapter's
+     examples and downloads their dependencies (SQLite JDBC and JavaFX)
+     automatically. You never need to run Maven yourself. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <groupId>com.deitel.javafundamentals</groupId>
+   <artifactId>ch20</artifactId>
+   <version>1.0</version>
+   <packaging>jar</packaging>
+
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <maven.compiler.release>21</maven.compiler.release>
+
+      <!-- Use the newest JavaFX release that matches the major Java version
+           running Maven. For Java 27, [27,27.999] selects the latest 27.x
+           (27, 27.0.1, ...) but no early-access builds (27-ea+N, 28-ea+N). -->
+      <javafx.version>[${java.specification.version},${java.specification.version}.999]</javafx.version>
+      <sqlite.version>3.54.1.0</sqlite.version>
+   </properties>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.xerial</groupId>
+         <artifactId>sqlite-jdbc</artifactId>
+         <version>${sqlite.version}</version>
+      </dependency>
+      <!-- javafx-controls brings in javafx-base and javafx-graphics. Maven
+           picks the native JARs for your operating system automatically. -->
+      <dependency>
+         <groupId>org.openjfx</groupId>
+         <artifactId>javafx-controls</artifactId>
+         <version>${javafx.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.openjfx</groupId>
+         <artifactId>javafx-fxml</artifactId>
+         <version>${javafx.version}</version>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <outputDirectory>bin</outputDirectory>
+
+      <plugins>
+         <!-- Each figure folder is a source folder. The .fxml files live next
+              to the .java files, so the folders also are resource folders. -->
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>3.6.0</version>
+            <executions>
+               <execution>
+                  <id>add-source</id>
+                  <phase>generate-sources</phase>
+                  <goals><goal>add-source</goal></goals>
+                  <configuration>
+                     <sources>
+                        <source>fig20_01</source>
+                        <source>fig20_02</source>
+                        <source>fig20_03-05</source>
+                     </sources>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>add-resource</id>
+                  <phase>generate-resources</phase>
+                  <goals><goal>add-resource</goal></goals>
+                  <configuration>
+                     <resources>
+                        <resource>
+                           <directory>fig20_02</directory>
+                           <includes><include>**/*.fxml</include></includes>
+                        </resource>
+                        <resource>
+                           <directory>fig20_03-05</directory>
+                           <includes><include>**/*.fxml</include></includes>
+                        </resource>
+                     </resources>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+
+         <!-- A JavaFX app whose main class extends Application must load
+              JavaFX from the module path. VS Code puts Maven dependencies on
+              the class path, so this copies the JavaFX JARs (without version
+              numbers in their names) to libs/javafx when VS Code imports the
+              project. The launch configurations in ch20.code-workspace then
+              use libs/javafx as the module path. -->
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>3.8.1</version>
+            <executions>
+               <execution>
+                  <id>copy-javafx</id>
+                  <phase>generate-resources</phase>
+                  <goals><goal>copy-dependencies</goal></goals>
+                  <configuration>
+                     <includeGroupIds>org.openjfx</includeGroupIds>
+                     <outputDirectory>${project.basedir}/libs/javafx</outputDirectory>
+                     <stripVersion>true</stripVersion>
+                     <overWriteReleases>true</overWriteReleases>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+
+      <pluginManagement>
+         <plugins>
+            <!-- Tells VS Code's Java extension (Eclipse m2e) to run the
+                 JavaFX copy step when it imports or updates the project. -->
+            <plugin>
+               <groupId>org.eclipse.m2e</groupId>
+               <artifactId>lifecycle-mapping</artifactId>
+               <version>1.0.0</version>
+               <configuration>
+                  <lifecycleMappingMetadata>
+                     <pluginExecutions>
+                        <pluginExecution>
+                           <pluginExecutionFilter>
+                              <groupId>org.apache.maven.plugins</groupId>
+                              <artifactId>maven-dependency-plugin</artifactId>
+                              <versionRange>[3.0,)</versionRange>
+                              <goals><goal>copy-dependencies</goal></goals>
+                           </pluginExecutionFilter>
+                           <action>
+                              <execute>
+                                 <runOnConfiguration>true</runOnConfiguration>
+                                 <runOnIncremental>false</runOnIncremental>
+                              </execute>
+                           </action>
+                        </pluginExecution>
+                     </pluginExecutions>
+                  </lifecycleMappingMetadata>
+               </configuration>
+            </plugin>
+         </plugins>
+      </pluginManagement>
+   </build>
+</project>

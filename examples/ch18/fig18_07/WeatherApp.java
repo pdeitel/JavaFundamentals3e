@@ -1,9 +1,15 @@
 // Fig. 18.7: WeatherApp.java
 // Fetch a city's weather using OpenWeatherMap API with 
 // structured concurrency and scoped values.
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.lang.ScopedValue;
+
+// Jackson 2.x: import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+// Jackson 2.x: import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper; // Jackson 3
+
+// Java 25+: ScopedValue is now a standard java.lang class,
+// so its preview-feature import is no longer needed.
+// import java.lang.ScopedValue; 
+
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
@@ -15,26 +21,27 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.StructuredTaskScope;
 import java.util.stream.Collectors;
 
 // record classes for current weather JSON mapping
-@JsonIgnoreProperties(ignoreUnknown = true)
+// Jackson 2: @JsonIgnoreProperties(ignoreUnknown = true)
 record WeatherData(Weather[] weather, Main main, long dt, 
    int timezone, String name) {}
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+// Jackson 2: @JsonIgnoreProperties(ignoreUnknown = true)
 record Weather(String main, String description) {}
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+// Jackson 2: @JsonIgnoreProperties(ignoreUnknown = true)
 record Main(double temp) {}
 
 // record classes for forecast JSON mapping
-@JsonIgnoreProperties(ignoreUnknown = true)
+// Jackson 2: @JsonIgnoreProperties(ignoreUnknown = true)
 record ForecastResponse(List<ForecastEntry> list) {}
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+// Jackson 2: @JsonIgnoreProperties(ignoreUnknown = true)
 record ForecastEntry(long dt, Main main, Weather[] weather) {}
 
 public class WeatherApp {
@@ -46,21 +53,21 @@ public class WeatherApp {
    private static final HttpClient HTTP_CLIENT = 
       HttpClient.newHttpClient(); 
 
-   // used to launch each group of requests for a specified city
+   // used when we launch each group of requests for a specified city
    private static final ScopedValue<String> CITY = 
       ScopedValue.newInstance();
 
    public static void main(String[] args) throws Exception {
       // check for proper command-line arguments
       if (args.length == 0) {
-         System.out.println("Usage: WeatherApp <city1> <city2> ...");
+         System.out.println("Usage: java WeatherApp <city1> <city2> ...");
          System.exit(1);
       }
 
       // simulate a server doing thread-per-request handling
       try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
          for (String city : args) {
-            executor.submit(
+            executor.execute(
                // set the ScopedValue's value then run a task; the task
                // and its subtasks will have access to the ScopedValue
                () -> ScopedValue.where(CITY, city).run(
@@ -69,6 +76,13 @@ public class WeatherApp {
                      try {
                         System.out.printf("%n%nWeather for %s:\n%s\n", 
                            city, getWeather());
+                     }
+                     // NEW CODE: a failed subtask's exception now arrives
+                     // wrapped in an ExecutionException, so unwrap it
+                     catch (ExecutionException ex) {
+                        System.err.printf(
+                           "Error fetching weather for %s: %s\n",
+                           city, ex.getCause().getMessage());
                      }
                      catch (Exception ex) {
                         System.err.printf(
@@ -96,15 +110,17 @@ public class WeatherApp {
          "https://api.openweathermap.org/data/2.5/forecast?q=%s" +
          "&units=metric&appid=%s", encodedCity, API_KEY);
       
-      // use StructuredTaskScope to manage concurrent tasks
-      try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
+      // use StructuredTaskScope to manage concurrent tasks; open() creates
+      // a scope that cancels the remaining subtasks if any subtask fails
+      try (var scope = StructuredTaskScope.open()) {
          var currentWeatherTask = scope.fork(
             () -> requestData(currentWeatherUrl, WeatherData.class));
-         var forecastTask = scope.fork( 
+         var forecastTask = scope.fork(
             () -> requestData(forecastUrl, ForecastResponse.class));
-         
-         scope.join(); // waits for responses
-         scope.throwIfFailed(); // throws an exception if a task fails 
+
+         // wait for the responses; join throws an ExecutionException
+         // (containing the subtask's exception) if a subtask fails
+         scope.join();
 
          // tasks completed successfully, retrieve results
          WeatherData weatherData = currentWeatherTask.get();

@@ -24,7 +24,7 @@ public class DisplayAuthors {
          ResultSet resultSet = statement.executeQuery(query)) {
       
          // get ResultSet's meta data
-         ResultSetMetaData metaData = resultSet.getMetaData();
+         ResultSetMetaData metaData = resultSet.getMetaData(); 
          int numberOfColumns = metaData.getColumnCount();     
          
          System.out.printf("Authors Table of Books Database:%n%n");

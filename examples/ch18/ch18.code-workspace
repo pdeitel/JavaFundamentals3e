@@ -1,0 +1,115 @@
+{
+  "folders": [
+    { "name": "fig18_01", "path": "fig18_01" },
+    { "name": "fig18_02", "path": "fig18_02" },
+    { "name": "fig18_03-04", "path": "fig18_03-04" },
+    { "name": "fig18_05", "path": "fig18_05" },
+    { "name": "fig18_06", "path": "fig18_06" },
+    { "name": "fig18_07", "path": "fig18_07" },
+    { "name": "fig18_08-10", "path": "fig18_08-10" },
+    { "name": "fig18_11-12", "path": "fig18_11-12" },
+    { "name": "fig18_13-14", "path": "fig18_13-14" }
+  ],
+  "settings": {
+    "java.project.referencedLibraries": [
+      // Jackson JSON library (used by fig18_07's WeatherApp).
+      // IMPORTANT: path is relative to EACH folder (fig18_##), so go up one level
+      "${workspaceFolder}/../libs/*.jar",
+      // JavaFX (used by fig18_11-12 and fig18_13-14). The Java language server
+      // does not expand ${env:PATH_TO_FX} here, so this must be the absolute
+      // path to the jars in your JavaFX SDK's lib folder. (The launch
+      // configurations below can use ${env:PATH_TO_FX}, which must point to
+      // the SDK's lib folder.)
+      "/Users/pauldeitel/Downloads/javafx-sdk-27/lib/*.jar"
+    ],
+    // Enables Java preview features in the editor and the debugger's compiler
+    // (fig18_07's WeatherApp uses the StructuredTaskScope preview API)
+    "java.settings.url": "/Users/pauldeitel/Dropbox/GitHub/JavaFundamentals3e/examples/ch18/java-preview.prefs",
+    "java.project.sourcePaths": ["."],
+    "java.project.outputPath": "bin",
+    "java.server.launchMode": "Standard",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.debug.settings.console": "integratedTerminal"
+  },
+  "extensions": {
+    // Adds "Open in Scene Builder" to the context menu for .fxml files. Run the
+    // "Configure Scene Builder path" command once to locate Scene Builder.
+    "recommendations": ["bilalekrem.scenebuilderextension"]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "Run SortComparison (fig18_01)",
+        "request": "launch",
+        "mainClass": "SortComparison",
+        "cwd": "${workspaceFolder:fig18_01}"
+      },
+      {
+        "type": "java",
+        "name": "Run StreamStatisticsComparison (fig18_02)",
+        "request": "launch",
+        "mainClass": "StreamStatisticsComparison",
+        "cwd": "${workspaceFolder:fig18_02}"
+      },
+      {
+        "type": "java",
+        "name": "Run TaskExecutor (fig18_03-04)",
+        "request": "launch",
+        "mainClass": "TaskExecutor",
+        "cwd": "${workspaceFolder:fig18_03-04}"
+      },
+      {
+        "type": "java",
+        "name": "Run VirtualThreadDemo (fig18_05)",
+        "request": "launch",
+        "mainClass": "VirtualThreadDemo",
+        "cwd": "${workspaceFolder:fig18_05}"
+      },
+      {
+        // prompts for the number of tasks to launch (e.g., 10000)
+        "type": "java",
+        "name": "Run PlatformAndVirtualThreads (fig18_06)",
+        "request": "launch",
+        "mainClass": "PlatformAndVirtualThreads",
+        "cwd": "${workspaceFolder:fig18_06}",
+        "args": "${command:SpecifyProgramArgs}"
+      },
+      {
+        // prompts for one or more city names (e.g., Boston "New York");
+        // requires the OPENWEATHERMAP_API_KEY environment variable
+        "type": "java",
+        "name": "Run WeatherApp (fig18_07)",
+        "request": "launch",
+        "mainClass": "WeatherApp",
+        "cwd": "${workspaceFolder:fig18_07}",
+        "args": "${command:SpecifyProgramArgs}",
+        "vmArgs": "--enable-preview"
+      },
+      {
+        "type": "java",
+        "name": "Run BlockingBufferTest (fig18_08-10)",
+        "request": "launch",
+        "mainClass": "BlockingBufferTest",
+        "cwd": "${workspaceFolder:fig18_08-10}"
+      },
+      {
+        "type": "java",
+        "name": "Run FibonacciNumbers (fig18_11-12, JavaFX)",
+        "request": "launch",
+        "mainClass": "FibonacciNumbers",
+        "cwd": "${workspaceFolder:fig18_11-12}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      },
+      {
+        "type": "java",
+        "name": "Run FindPrimes (fig18_13-14, JavaFX)",
+        "request": "launch",
+        "mainClass": "FindPrimes",
+        "cwd": "${workspaceFolder:fig18_13-14}",
+        "vmArgs": "--module-path \"${env:PATH_TO_FX}\" --add-modules javafx.controls,javafx.fxml"
+      }
+    ]
+  }
+}

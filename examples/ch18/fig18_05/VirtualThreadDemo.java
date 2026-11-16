@@ -20,7 +20,7 @@ public class VirtualThreadDemo {
          executor.execute(task1); // start task1	
          executor.execute(task2); // start task2
          executor.execute(task3); // start task3
-      } 
+      } // automatic shutdown() and awaitTermination() calls
 
       System.out.println("\nMain ends.");
    } 

@@ -5,7 +5,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class BlockingBuffer implements Buffer {
    // BlockingBuffer uses an ArrayBlockingQueue to manage synchronization
    private final ArrayBlockingQueue<Integer> buffer = 
-      new ArrayBlockingQueue<>(1);;
+      new ArrayBlockingQueue<>(1);
    
    // place value into buffer
    @Override

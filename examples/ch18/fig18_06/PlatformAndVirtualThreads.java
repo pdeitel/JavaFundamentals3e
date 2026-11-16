@@ -42,15 +42,17 @@ public class PlatformAndVirtualThreads {
       var end = clock.instant();
 
       // display results
-      System.out.printf("Execution time: %.2f seconds%n", 
-         Duration.between(start, end).toMillis() / 1000.0);
-      System.out.printf("Sum of squares 1-%d: %d%n%n", tasks, sum);
+      double seconds = Duration.between(start, end).toMillis() / 1000.0;
+      System.out.printf("Execution time: %.2f seconds%n", seconds);
+      System.out.printf("Sum of squares 1-%d: %d%n", tasks, sum);
+      System.out.printf("Throughput: %,.2f tasks per second%n%n",
+         tasks / seconds);
    }
    
    public static void main(String[] args) throws Exception {
       // check for proper command-line arguments
       if (args.length != 1) {
-         System.out.println("Usage: PlatformAndVirtualThreads <count>");
+         System.out.println("Usage: java PlatformAndVirtualThreads <count>");
          System.exit(1);
       }
 

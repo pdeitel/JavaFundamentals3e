@@ -1,0 +1,47 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    // The Java extension imports pom.xml, which downloads SQLite JDBC and the
+    // JavaFX version that matches your Java version, then copies the JavaFX
+    // JARs into libs/javafx.
+    "java.configuration.updateBuildConfiguration": "automatic",
+    // VS Code does not expand ${workspaceFolder} in this setting, so the
+    // module path is relative to the working directory (this ch20 folder),
+    // which is where the Run/Debug links above main start the program.
+    "java.debug.settings.vmArgs": "--module-path libs/javafx --add-modules javafx.controls,javafx.fxml --enable-native-access=javafx.graphics,ALL-UNNAMED",
+    "java.debug.settings.console": "integratedTerminal"
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "Run DisplayAuthors",
+        "request": "launch",
+        "mainClass": "DisplayAuthors",
+        "cwd": "${workspaceFolder}",
+        "vmArgs": "--enable-native-access=ALL-UNNAMED"
+      },
+      {
+        "type": "java",
+        "name": "Run DisplayQueryResults (JavaFX)",
+        "request": "launch",
+        "mainClass": "DisplayQueryResults",
+        "cwd": "${workspaceFolder}",
+        "vmArgs": "--module-path \"${workspaceFolder}/libs/javafx\" --add-modules javafx.controls,javafx.fxml --enable-native-access=javafx.graphics,ALL-UNNAMED"
+      },
+      {
+        "type": "java",
+        "name": "Run AddressBook (JavaFX)",
+        "request": "launch",
+        "mainClass": "AddressBook",
+        "cwd": "${workspaceFolder}",
+        "vmArgs": "--module-path \"${workspaceFolder}/libs/javafx\" --add-modules javafx.controls,javafx.fxml --enable-native-access=javafx.graphics,ALL-UNNAMED"
+      }
+    ]
+  }
+}
