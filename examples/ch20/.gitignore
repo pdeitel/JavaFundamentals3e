@@ -1,0 +1,8 @@
+bin/
+libs/javafx-sdk-27/
+fig20_03-05/addressbook.db
+fig20_01/*.class
+fig20_02/*.class
+fig20_03-05/*.class
+libs/javafx/
+target/

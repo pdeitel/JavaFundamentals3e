@@ -1,4 +1,17 @@
 ===========================================================
+Listing the JDK's Modules (Section 21.2)
+===========================================================
+// All platforms
+java --list-modules
+
+===========================================================
+Listing the java.base Module's Contents (Section 21.2)
+===========================================================
+// All platforms
+java --describe-module java.base
+
+
+===========================================================
 WelcomeApp
 ===========================================================
 
@@ -8,7 +21,7 @@ javac -d mods\com.deitel.welcome ^
    src\com.deitel.welcome\com\deitel\welcome\Welcome.java
 
 // Windows PowerShell: Compiling the WelcomeApp 
-javac -d mods/com.deitel.welcome `
+javac -d mods\com.deitel.welcome `
    src\com.deitel.welcome\module-info.java `
    src\com.deitel.welcome\com\deitel\welcome\Welcome.java
 
@@ -61,6 +74,12 @@ jar -cfe jars\com.deitel.welcome.jar `
 jar -cfe jars/com.deitel.welcome.jar \
    com.deitel.welcome.Welcome \
    -C mods/com.deitel.welcome .
+
+// Windows: Confirming the contents of the WelcomeApp's JAR file
+jar --describe-module --file jars\com.deitel.welcome.jar
+
+// macOS: Confirming the contents of the WelcomeApp's JAR file
+jar --describe-module --file jars/com.deitel.welcome.jar
 
 // All platforms: Running the WelcomeApp from a Modular JAR file
 // if you specified the entry point
@@ -121,7 +140,7 @@ java --module-path mods `
 java --module-path mods \
    -m com.deitel.timetest/com.deitel.timetest.Time1Test
 
-// Windows Command Prompt: Packaging the TimeApp's modules JAR files
+// Windows Command Prompt: Packaging the TimeApp's modules in JAR files
 jar --create -f jars\com.deitel.timelibrary.jar ^
    -C mods\com.deitel.timelibrary .
 
@@ -129,7 +148,7 @@ jar --create -f jars\com.deitel.timetest.jar ^
    --main-class com.deitel.timetest.Time1Test ^
    -C mods\com.deitel.timetest .
 
-// Windows PowerShell: Packaging the WelcomeApp's module in a JAR file 
+// Windows PowerShell: Packaging the TimeApp's modules in JAR files
 jar --create -f jars\com.deitel.timelibrary.jar `
    -C mods\com.deitel.timelibrary .
 
@@ -137,7 +156,7 @@ jar --create -f jars\com.deitel.timetest.jar `
    --main-class com.deitel.timetest.Time1Test `
    -C mods\com.deitel.timetest .
 
-// macOS: Packaging the WelcomeApp's module in a JAR file 
+// macOS: Packaging the TimeApp's modules in JAR files
 jar --create -f jars/com.deitel.timelibrary.jar \
    -C mods/com.deitel.timelibrary .
 
@@ -192,7 +211,7 @@ javac --module-path "$env:PATH_TO_FX;mods" `
    src\com.deitel.videoplayer\com\deitel\videoplayer\*.java
 
 // macOS: Compiling the VideoPlayer 
-javac --module-path "$PATH_TO_FX:mods" \
+javac --module-path "$PATH_TO_FX":mods \
    -d mods/com.deitel.videoplayer \
    src/com.deitel.videoplayer/module-info.java \
    src/com.deitel.videoplayer/com/deitel/videoplayer/*.java 
@@ -206,7 +225,7 @@ java --module-path "$env:PATH_TO_FX;mods" `
    -m com.deitel.videoplayer/com.deitel.videoplayer.VideoPlayer
 
 // macOS: Running the VideoPlayer 
-java --module-path "$PATH_TO_FX:mods" \
+java --module-path "$PATH_TO_FX":mods \
    -m com.deitel.videoplayer/com.deitel.videoplayer.VideoPlayer
 
 
@@ -214,44 +233,18 @@ java --module-path "$PATH_TO_FX:mods" \
 ===========================================================
 Custom Runtime Containing Only java.base 
 ===========================================================
-// Windows Command Prompt
-jlink --module-path "%JAVA_HOME%\jmods" --add-modules java.base ^
-   --output javabaseruntime
-
-// Windows PowerShell
-jlink --module-path "$env:JAVA_HOME\jmods" --add-modules java.base `
-   --output javabaseruntime
-
-// macOS
-jlink --module-path "$JAVA_HOME/jmods" --add-modules java.base \
-   --output javabaseruntime
+jlink --add-modules java.base --output javabaseruntime
 
 
 ===========================================================
 Executing the Welcome App Using javabaseruntime
 ===========================================================
 // Windows Command Prompt
-javabaseruntime/bin/java --module-path mods ^
+javabaseruntime\bin\java --module-path mods ^
    --module com.deitel.welcome/com.deitel.welcome.Welcome
 
 // Windows PowerShell
-javabaseruntime/bin/java --module-path mods `
-   --module com.deitel.welcome/com.deitel.welcome.Welcome
-
-// macOS
-javabaseruntime/bin/java --module-path mods \
-   --module com.deitel.welcome/com.deitel.welcome.Welcome
-
-
-===========================================================
-Executing the Welcome App Using javabaseruntime
-===========================================================
-// Windows Command Prompt
-javabaseruntime/bin/java --module-path mods ^
-   --module com.deitel.welcome/com.deitel.welcome.Welcome
-
-// Windows PowerShell
-javabaseruntime/bin/java --module-path mods `
+javabaseruntime\bin\java --module-path mods `
    --module com.deitel.welcome/com.deitel.welcome.Welcome
 
 // macOS
@@ -262,7 +255,7 @@ javabaseruntime/bin/java --module-path mods \
 ===========================================================
 Listing the Modules in javabaseruntime
 ===========================================================
-// Windows 
+// Windows
 javabaseruntime\bin\java --list-modules
 
 // macOS
@@ -270,19 +263,64 @@ javabaseruntime/bin/java --list-modules
 
 
 ===========================================================
+Custom Runtime Containing Only java.sql and Its Dependencies
+===========================================================
+jlink --add-modules java.sql --output javasqlruntime
+
+===========================================================
+Listing the Modules in javasqlruntime
+===========================================================
+// Windows
+javasqlruntime\bin\java --list-modules
+
+// macOS
+javasqlruntime/bin/java --list-modules
+
+
+===========================================================
 Custom runtime that includes the Welcome app's code
 ===========================================================
 // Windows Command Prompt
-jlink --module-path "jars;%JAVA_HOME%\jmods" ^
+jlink --module-path jars ^
    --add-modules com.deitel.welcome --output welcomeruntime
 
 // Windows PowerShell
-jlink --module-path "jars;$env:JAVA_HOME\jmods" `
+jlink --module-path jars `
    --add-modules com.deitel.welcome --output welcomeruntime
 
 // macOS
-jlink --module-path "jars:$JAVA_HOME/jmods" \
+jlink --module-path jars \
    --add-modules com.deitel.welcome --output welcomeruntime
+
+
+===========================================================
+Listing the Modules in welcomeruntime
+===========================================================
+// Windows
+welcomeruntime\bin\java --list-modules
+
+// macOS
+welcomeruntime/bin/java --list-modules
+
+
+===========================================================
+Executing the Welcome App Using welcomeruntime
+===========================================================
+// Windows
+welcomeruntime\bin\java -m com.deitel.welcome
+
+// macOS
+welcomeruntime/bin/java -m com.deitel.welcome
+
+
+===========================================================
+Using the Module Resolver on welcomeruntime
+===========================================================
+// Windows
+welcomeruntime\bin\java --show-module-resolution -m com.deitel.welcome
+
+// macOS
+welcomeruntime/bin/java --show-module-resolution -m com.deitel.welcome
 
 
 ===========================================================
@@ -333,8 +371,7 @@ AdditionProblemProvider.java
 // Windows PowerShell
 javac --module-path mods -d mods\com.deitel.additionprovider `
    src\com.deitel.additionprovider\module-info.java `
-   src\com.deitel.additionprovider\com\deitel\additionprovider\`
-AdditionProblemProvider.java
+   src\com.deitel.additionprovider\com\deitel\additionprovider\AdditionProblemProvider.java
 
 // macOS 
 javac --module-path mods -d mods/com.deitel.additionprovider \
@@ -371,8 +408,7 @@ multiplicationprovider\MultiplicationProblemProvider.java
 javac --module-path mods `
    -d mods\com.deitel.multiplicationprovider `
    src\com.deitel.multiplicationprovider\module-info.java `
-   src\com.deitel.multiplicationprovider\com\deitel\`
-multiplicationprovider\MultiplicationProblemProvider.java
+   src\com.deitel.multiplicationprovider\com\deitel\multiplicationprovider\MultiplicationProblemProvider.java
 
 // macOS: Compiling the MultiplicationProblemProvider 
 javac --module-path mods \
@@ -382,7 +418,38 @@ javac --module-path mods \
 multiplicationprovider/MultiplicationProblemProvider.java
 
 ===========================================================
-JDEPS COMMANDS FOR PRODUCING .dot FILES 
+JDEPS DEPENDENCY-ANALYSIS COMMANDS (Section 21.6.3)
+Executed from the WelcomeApp folder.
+===========================================================
+// All platforms: Checking for dependencies on JDK internal APIs
+jdeps --jdk-internals YourClassName.class
+
+jdeps --jdk-internals YourJARName.jar
+
+// All platforms: Determining the modules the Welcome app needs
+jdeps --module-path jars -m com.deitel.welcome
+
+// Windows: Equivalent form of the preceding command
+jdeps jars\com.deitel.welcome.jar
+
+// macOS: Equivalent form of the preceding command
+jdeps jars/com.deitel.welcome.jar
+
+// Windows: Analyzing a specific .class file
+jdeps mods\com.deitel.welcome\com\deitel\welcome\Welcome.class
+
+// macOS: Analyzing a specific .class file
+jdeps mods/com.deitel.welcome/com/deitel/welcome/Welcome.class
+
+// Windows: Verbose jdeps output
+jdeps -v jars\com.deitel.welcome.jar
+
+// macOS: Verbose jdeps output
+jdeps -v jars/com.deitel.welcome.jar
+
+
+===========================================================
+JDEPS COMMANDS FOR PRODUCING .dot FILES
 Executed from the folder containing the "jars" folder.
 Places .dot files in the current folder (.).
 ===========================================================
@@ -397,7 +464,7 @@ jdeps --module-path "%PATH_TO_FX%";mods --dot-output . ^
    --recursive --module com.deitel.videoplayer
  
 VideoPlayer (Windows PowerShell): 
-jdeps --module-path "$env:PATH_TO_FX";mods --dot-output . `
+jdeps --module-path "$env:PATH_TO_FX;mods" --dot-output . `
    --recursive --module com.deitel.videoplayer
 
 VideoPlayer (macOS): 

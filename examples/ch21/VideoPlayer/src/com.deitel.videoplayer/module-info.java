@@ -4,7 +4,7 @@ module com.deitel.videoplayer {
    requires javafx.controls;
    requires javafx.fxml;
    requires javafx.media;
-   requires controlsfx; // automatic module for ControlsFX
+   requires org.controlsfx.controls; 
 
    exports com.deitel.videoplayer;
    opens com.deitel.videoplayer to javafx.fxml;
